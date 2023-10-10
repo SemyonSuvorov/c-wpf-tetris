@@ -7,7 +7,7 @@ using System.Windows.Documents;
 
 namespace tetris
 {
-    public class GameGrid
+    internal class GameGrid
     {
         private readonly int[,] grid;
         public int Rows { get; }
