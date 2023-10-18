@@ -47,6 +47,12 @@ namespace tetris
         private readonly Image[,] imageControls;
         private GameState gameState= new GameState();
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            imageControls = SetupGameCanvas(gameState.GameGrid);
+        }
+
         private Image[,] SetupGameCanvas(GameGrid grid)
         {
             Image[,] imageControls = new Image[grid.Rows, grid.Columns];
@@ -72,11 +78,12 @@ namespace tetris
 
         private void DrawGrid(GameGrid grid)
         {
-            for(int r = 0; r<grid.Rows; r++)
+            for (int r = 0; r < grid.Rows; r++)
             {
-                for(int c = 0; c < grid.Columns; c++)
+                for (int c = 0; c < grid.Columns; c++)
                 {
                     int id = grid[r, c];
+                    imageControls[r, c].Opacity = 1;
                     imageControls[r, c].Source = tileImages[id];
                 }
             }
@@ -84,10 +91,10 @@ namespace tetris
 
         private void DrawBlock(Block block)
         {
-            foreach(Position p in block.TilePositions())
+            foreach (Position p in block.TilePositions())
             {
+                imageControls[p.Row, p.Column].Opacity = 1;
                 imageControls[p.Row, p.Column].Source = tileImages[block.Id];
-
             }
         }
 
@@ -97,15 +104,20 @@ namespace tetris
             DrawBlock(gameState.CurrentBlock);
         }
 
-        public MainWindow()
-        {
-            InitializeComponent();
-            imageControls = SetupGameCanvas(gameState.GameGrid);
-        }
-
-        private void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+        private async Task GameLoop()
         {
             Draw(gameState);
+            while(!gameState.GameOver)
+            {
+                await Task.Delay(500);
+                gameState.MoveBlockDown();
+                Draw(gameState);
+            }
+            GameOverMenu.Visibility = Visibility.Visible;
+        }
+        private async void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+        {
+            await GameLoop();
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) 
         {
@@ -131,12 +143,17 @@ namespace tetris
                 case Key.D:
                     gameState.RotateBlockCW();
                     break;
+                default:
+                    return;
             }
+            Draw(gameState);    
         }
 
-        private void PlayAgain_Click(object sender, RoutedEventArgs e)
+        private async void PlayAgain_Click(object sender, RoutedEventArgs e)
         {
-
+            gameState = new GameState();
+            GameOverMenu.Visibility = Visibility.Hidden;
+            await GameLoop();
         }
     }
 }

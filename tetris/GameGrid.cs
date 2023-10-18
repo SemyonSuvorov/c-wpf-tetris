@@ -32,14 +32,17 @@ namespace tetris
 
         public bool IsEmpty(int r, int c) 
         { 
-            return grid[r, c] == 0 && IsEmpty(r,c); 
+            return IsInside(r, c) && grid[r, c] == 0; 
         }
 
         public bool IsRowFull(int r)
         {
             for(int c = 0; c < Columns; c++) 
             {
-                if (grid[r, c] == 0) return false;
+                if (grid[r, c] == 0)
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -48,7 +51,10 @@ namespace tetris
         {
             for(int c=0; c < Columns; c++)
             {
-                if (grid[r, c] != 0) return false;
+                if (grid[r, c] != 0)
+                {
+                    return false;
+                }
             }
             return true;
         }
@@ -65,7 +71,7 @@ namespace tetris
         {
             for (int c = 0; c < Columns; c++)
             {
-                grid[r + numrows, c] = c;
+                grid[r + numrows, c] = grid[r, c];
                 grid[r, c] = 0;
             }
         }
