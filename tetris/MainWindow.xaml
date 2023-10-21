@@ -48,6 +48,10 @@
                    Margin="0, 224"
                    TextAlignment="Center">
         </TextBlock>
+        <TextBlock Text="Press P to pause"
+                   TextAlignment="Center"
+                   VerticalAlignment="Center">
+        </TextBlock>
         <StackPanel Grid.Row="1"
                     Grid.Column="2"
                     VerticalAlignment="Center"

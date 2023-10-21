@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -49,7 +50,7 @@ namespace tetris
         private readonly int minDelay = 75;
         private readonly double delayDecrease = 0.25;
         private GameState gameState= new GameState();
-        private int Y_axis = 1;
+        private int Y_axis;
 
         public MainWindow()
         {
@@ -130,6 +131,7 @@ namespace tetris
 
         private async Task GameLoop()
         {
+            Y_axis = 1;
             Draw(gameState);
             while(!gameState.GameOver)
             {
