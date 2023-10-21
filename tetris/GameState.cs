@@ -34,7 +34,9 @@ namespace tetris
         public BlockQueue BlockQueue { get; }
         public bool GameOver { get; private set; }
 
+        private int numRowsCleared;
         public int Score { get; private set; }
+        public int Level { get; private set; }
 
         public GameState()
         {
@@ -102,7 +104,10 @@ namespace tetris
             {
                 GameGrid[p.Row, p.Column] = CurrentBlock.Id;
             }
-            Score += 100 * GameGrid.ClearFullRows();
+            numRowsCleared = GameGrid.ClearFullRows();
+            Level += numRowsCleared;
+            Score += 100 * numRowsCleared;
+
 
             if(IsGameOver())
             {

@@ -125,6 +125,7 @@ namespace tetris
             DrawBlock(gameState.CurrentBlock);
             DrawNextBlock(gameState.BlockQueue);
             ScoreText.Text = $"Score: {gameState.Score}";
+            CurrentLevel.Text = $"Level: {gameState.Level}";
         }
 
         private async Task GameLoop()
@@ -185,7 +186,7 @@ namespace tetris
         }
 
 
-        private async void Continue_Click(object sender, RoutedEventArgs e)
+        private void Continue_Click(object sender, RoutedEventArgs e)
         {
             Y_axis = 1;
             PauseMenu.Visibility = Visibility.Hidden;
