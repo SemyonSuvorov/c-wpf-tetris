@@ -45,7 +45,11 @@ namespace tetris
         };
 
         private readonly Image[,] imageControls;
+        private readonly int maxDelay = 1000;
+        private readonly int minDelay = 75;
+        private readonly double delayDecrease = 0.25;
         private GameState gameState= new GameState();
+        private int Y_axis = 1;
 
         public MainWindow()
         {
@@ -67,13 +71,19 @@ namespace tetris
                         Height = cellSize,
                     };
 
-                    Canvas.SetTop(imageControl, (r-2) * cellSize);
-                    Canvas.SetLeft(imageControl, c* cellSize);
+                    Canvas.SetTop(imageControl, (r-2) * cellSize + 10);
+                    Canvas.SetLeft(imageControl, c * cellSize);
                     GameCanvas.Children.Add(imageControl);
                     imageControls[r, c] = imageControl;
                 }
             }
             return imageControls;
+        }
+
+        private void DrawNextBlock(BlockQueue blockQueue)
+        {
+            Block Next = blockQueue.NextBlock;
+            NextImage.Source = blockImages[Next.Id];
         }
 
         private void DrawGrid(GameGrid grid)
@@ -98,10 +108,23 @@ namespace tetris
             }
         }
 
+        private void DrawGhostBlock(Block block)
+        {
+            int dropDistance = gameState.BlockDropDistance();
+            foreach(Position p in block.TilePositions())
+            {
+                imageControls[p.Row + dropDistance, p.Column].Opacity = 0.25;
+                imageControls[p.Row + dropDistance, p.Column].Source = tileImages[block.Id];
+            }
+        }
+
         private void Draw(GameState gameState)
         {
             DrawGrid(gameState.GameGrid);
+            DrawGhostBlock(gameState.CurrentBlock);
             DrawBlock(gameState.CurrentBlock);
+            DrawNextBlock(gameState.BlockQueue);
+            ScoreText.Text = $"Score: {gameState.Score}";
         }
 
         private async Task GameLoop()
@@ -109,44 +132,63 @@ namespace tetris
             Draw(gameState);
             while(!gameState.GameOver)
             {
-                await Task.Delay(500);
-                gameState.MoveBlockDown();
+                int delay = (int)Math.Max(minDelay, maxDelay - (gameState.Score * delayDecrease));  
+                await Task.Delay(delay);
+                gameState.MoveBlockDown(Y_axis);
                 Draw(gameState);
             }
             GameOverMenu.Visibility = Visibility.Visible;
+            FinalScoreText.Text = $"Score: {gameState.Score}";
         }
         private async void GameCanvas_Loaded(object sender, RoutedEventArgs e)
         {
             await GameLoop();
         }
+
         private void Window_KeyDown(object sender, KeyEventArgs e) 
         {
             if(gameState.GameOver)
             {
                 return;
             }
-            
-            switch(e.Key)
+            if (Y_axis == 1)
             {
-                case Key.Left:
-                    gameState.MoveBlockLeft();
-                    break;
-                case Key.Right:
-                    gameState.MoveBlockRight();
-                    break;
-                case Key.Down:
-                    gameState.MoveBlockDown();
-                    break;
-                case Key.A:
-                    gameState.RotateBlockCCW();
-                    break;
-                case Key.D:
-                    gameState.RotateBlockCW();
-                    break;
-                default:
-                    return;
+                switch (e.Key)
+                {
+                    case Key.Left:
+                        gameState.MoveBlockLeft();
+                        break;
+                    case Key.Right:
+                        gameState.MoveBlockRight();
+                        break;
+                    case Key.Down:
+                        gameState.MoveBlockDown(Y_axis);
+                        break;
+                    case Key.A:
+                        gameState.RotateBlockCCW();
+                        break;
+                    case Key.D:
+                        gameState.RotateBlockCW();
+                        break;
+                    case Key.Space:
+                        gameState.DropBlock();
+                        break;
+                    case Key.P:
+                        PauseMenu.Visibility = Visibility.Visible;
+                        Y_axis = 0;
+                        break;
+                    default:
+                        return;
+                }
             }
             Draw(gameState);    
+        }
+
+
+        private async void Continue_Click(object sender, RoutedEventArgs e)
+        {
+            Y_axis = 1;
+            PauseMenu.Visibility = Visibility.Hidden;
         }
 
         private async void PlayAgain_Click(object sender, RoutedEventArgs e)

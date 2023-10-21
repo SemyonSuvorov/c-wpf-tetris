@@ -34,6 +34,8 @@ namespace tetris
         public BlockQueue BlockQueue { get; }
         public bool GameOver { get; private set; }
 
+        public int Score { get; private set; }
+
         public GameState()
         {
             GameGrid = new GameGrid(22, 10);
@@ -100,7 +102,7 @@ namespace tetris
             {
                 GameGrid[p.Row, p.Column] = CurrentBlock.Id;
             }
-            GameGrid.ClearFullRows();
+            Score += 100 * GameGrid.ClearFullRows();
 
             if(IsGameOver())
             {
@@ -112,9 +114,9 @@ namespace tetris
             }
         }
 
-        public void MoveBlockDown()
+        public void MoveBlockDown(int Yaxis)
         {
-            CurrentBlock.Move(1, 0);
+            CurrentBlock.Move(Yaxis, 0);
             if (!BlockFits())
             {
                 CurrentBlock.Move(-1, 0);
@@ -122,5 +124,33 @@ namespace tetris
             }
         }
 
+        private int TileDropDistance(Position p)
+        {
+            int drop = 0;
+
+            while(GameGrid.IsEmpty(p.Row + drop + 1, p.Column))
+            {
+                drop++;
+            }
+
+            return drop;
+        }
+
+        public int BlockDropDistance()
+        {
+            int drop = GameGrid.Rows;
+
+            foreach(Position p in CurrentBlock.TilePositions())
+            {
+                drop = Math.Min(drop, TileDropDistance(p));
+            }
+            return drop;
+        }
+
+        public void DropBlock()
+        {
+            CurrentBlock.Move(BlockDropDistance(), 0);
+            PlaceBlock();
+        }
     }
 }
