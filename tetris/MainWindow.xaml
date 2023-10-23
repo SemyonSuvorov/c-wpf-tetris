@@ -80,6 +80,11 @@
                         Margin="0,20,0,0"
                         Padding="5"
                         Click="PlayAgain_Click"/>
+                <Button Content="Main Menu"
+                        Background="LightPink"
+                        Margin="0,20,0,0"
+                        Padding="5"
+                        Click="MainMenu_Click"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="MainMenu"
@@ -128,6 +133,7 @@
                         Content="Continue"
                         Background="LightGreen"
                         Width="120"
+                        Padding="5"
                         Click="NickReg_Click"/>
             </StackPanel>
         </Grid>

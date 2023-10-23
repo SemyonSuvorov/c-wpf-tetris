@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.12" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.118" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +54,12 @@
     <Resource Include="assets\TilePurple.png" />
     <Resource Include="assets\TileRed.png" />
     <Resource Include="assets\TileYellow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="leaderboard.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

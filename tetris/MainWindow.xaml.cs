@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace tetris
 {
@@ -53,9 +46,11 @@ namespace tetris
         private int Y_axis;
         private static bool flag = true;
         private string nickName;
+        private Leaderboard db;
 
         public MainWindow()
         {
+            db = new Leaderboard();
             InitializeComponent();
             imageControls = SetupGameCanvas(gameState.GameGrid);
         }
@@ -130,7 +125,6 @@ namespace tetris
             ScoreText.Text = $"Score: {gameState.Score}";
             CurrentLevel.Text = $"Level: {gameState.Level}";
         }
-
         private async Task GameLoop()
         {
             flag = true;
@@ -145,6 +139,7 @@ namespace tetris
             }
             if (gameState.GameOver) 
             {
+                db.AddToDb(gameState.Score, nickName);
                 GameOverMenu.Visibility = Visibility.Visible;
                 FinalScoreText.Text = $"Score: {gameState.Score}";
             }
@@ -164,9 +159,9 @@ namespace tetris
         {
             nickName = nickBox.Text.Trim();
 
-            if (nickName.Length < 5 )
+            if (nickName.Length < 3 )
             {
-                nickBox.ToolTip = "Your nickname must be at least 5 characters long";
+                nickBox.ToolTip = "Your nickname must be at least 3 characters long";
                 nickBox.Background = Brushes.LightPink;
             }
             else
@@ -216,6 +211,7 @@ namespace tetris
         
         private void MainMenu_Click(object sender, RoutedEventArgs e) 
         {
+            GameOverMenu.Visibility = Visibility.Hidden;   
             PauseMenu.Visibility = Visibility.Hidden;
             MainMenu.Visibility = Visibility.Visible;
             flag = false; 
