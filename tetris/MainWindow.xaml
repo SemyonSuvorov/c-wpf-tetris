@@ -32,8 +32,7 @@
                 Background="#1C1C1C"
                 Width="250"
                 Height="510"
-                ClipToBounds="True"
-                Loaded="GameCanvas_Loaded"/>
+                ClipToBounds="True"/>
         </Viewbox>
         <TextBlock x:Name="ScoreText"
                    Grid.Column="1"
@@ -83,6 +82,32 @@
                         Click="PlayAgain_Click"/>
             </StackPanel>
         </Grid>
+        <Grid x:Name="MainMenu"
+              Background="Black"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="3"
+              Visibility="Visible">
+            <StackPanel Grid.Row="0"
+                        Grid.Column='1'>
+                <TextBlock Text="Tetris"
+                        FontSize="48"
+                        TextAlignment="Center"/>
+                <Button Content="Start"
+                        Background="LightGreen"
+                        Width="200"
+                        Height="90"
+                        Margin="0,90,0,0"
+                        Padding="20"
+                        Click="Start_Click"/>  
+                <Button Content="LeaderBoard"
+                        Background="LightGreen"
+                        Width="200"
+                        Height="90"
+                        Margin="0,90,0,0"
+                        Padding="20"
+                        Click="LeaderBoard_Click"/>        
+            </StackPanel>
+        </Grid>
         <Grid x:Name="PauseMenu"
               Background="#CC000000"
               Grid.RowSpan="2"
@@ -103,9 +128,14 @@
                         Margin="0,40,0,0"
                         Padding="20"
                         Click="Continue_Click"/>
-
+                <Button Content="Main Menu"
+                        Background="LightPink"
+                        Width="200"
+                        Height="90"
+                        Margin="0,40,0,0"
+                        Padding="20"
+                        Click="MainMenu_Click"/>
             </StackPanel>
-            
         </Grid>
     </Grid>
 </Window>

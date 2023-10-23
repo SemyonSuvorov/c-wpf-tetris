@@ -51,6 +51,7 @@ namespace tetris
         private readonly double delayDecrease = 0.25;
         private GameState gameState= new GameState();
         private int Y_axis;
+        private static bool flag = true;
 
         public MainWindow()
         {
@@ -131,22 +132,32 @@ namespace tetris
 
         private async Task GameLoop()
         {
+            flag = true;
             Y_axis = 1;
             Draw(gameState);
-            while(!gameState.GameOver)
+            while(!gameState.GameOver && flag == true)
             {
                 int delay = (int)Math.Max(minDelay, maxDelay - (gameState.Score * delayDecrease));  
                 await Task.Delay(delay);
                 gameState.MoveBlockDown(Y_axis);
                 Draw(gameState);
             }
-            GameOverMenu.Visibility = Visibility.Visible;
-            FinalScoreText.Text = $"Score: {gameState.Score}";
+            if (gameState.GameOver) 
+            {
+                GameOverMenu.Visibility = Visibility.Visible;
+                FinalScoreText.Text = $"Score: {gameState.Score}";
+            }
+            
         }
-        private async void GameCanvas_Loaded(object sender, RoutedEventArgs e)
+
+        private async void Start_Click(object sender, RoutedEventArgs e) 
         {
+            gameState = new GameState();
+            MainMenu.Visibility = Visibility.Hidden;
             await GameLoop();
         }
+
+        private void LeaderBoard_Click(object sender, RoutedEventArgs e) { }
 
         private void Window_KeyDown(object sender, KeyEventArgs e) 
         {
@@ -186,7 +197,13 @@ namespace tetris
             }
             Draw(gameState);    
         }
-
+        
+        private void MainMenu_Click(object sender, RoutedEventArgs e) 
+        {
+            PauseMenu.Visibility = Visibility.Hidden;
+            MainMenu.Visibility = Visibility.Visible;
+            flag = false; 
+        }
 
         private void Continue_Click(object sender, RoutedEventArgs e)
         {
