@@ -13,7 +13,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/> 
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -28,7 +28,7 @@
         <Viewbox Grid.Row="1" 
                  Grid.Column="1"
                  Margin="0,0,0,20">
-        <Canvas x:Name="GameCanvas"
+            <Canvas x:Name="GameCanvas"
                 Background="#1C1C1C"
                 Width="250"
                 Height="510"
@@ -98,14 +98,37 @@
                         Height="90"
                         Margin="0,90,0,0"
                         Padding="20"
-                        Click="Start_Click"/>  
-                <Button Content="LeaderBoard"
+                        Click="Start_Click"/>
+                <Button Content="Leaderboard"
                         Background="LightGreen"
                         Width="200"
                         Height="90"
                         Margin="0,90,0,0"
                         Padding="20"
-                        Click="LeaderBoard_Click"/>        
+                        Click="LeaderBoard_Click"/>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="RegField"
+              Background="Black"
+              Grid.ColumnSpan="3"
+              Visibility="Visible"
+              Grid.RowSpan="2">
+            <StackPanel Grid.Row="0"
+                        Grid.Column="1">
+                <TextBlock Text="Please, enter your nickname:"
+                           HorizontalAlignment="Center"
+                           Margin="0,190,0,0"/>
+                <TextBox x:Name="nickBox"
+                         Height="50"
+                         Width="300"
+                         VerticalScrollBarVisibility="Auto"
+                         HorizontalScrollBarVisibility="Auto"
+                         VerticalAlignment="Center"/>
+                <Button x:Name="nickRegButton"
+                        Content="Continue"
+                        Background="LightGreen"
+                        Width="120"
+                        Click="NickReg_Click"/>
             </StackPanel>
         </Grid>
         <Grid x:Name="PauseMenu"

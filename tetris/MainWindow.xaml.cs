@@ -52,6 +52,7 @@ namespace tetris
         private GameState gameState= new GameState();
         private int Y_axis;
         private static bool flag = true;
+        private string nickName;
 
         public MainWindow()
         {
@@ -159,6 +160,21 @@ namespace tetris
 
         private void LeaderBoard_Click(object sender, RoutedEventArgs e) { }
 
+        private void NickReg_Click(object sender, RoutedEventArgs e)
+        {
+            nickName = nickBox.Text.Trim();
+
+            if (nickName.Length < 5 )
+            {
+                nickBox.ToolTip = "Your nickname must be at least 5 characters long";
+                nickBox.Background = Brushes.LightPink;
+            }
+            else
+            {
+                RegField.Visibility = Visibility.Hidden;
+            }
+            
+        }
         private void Window_KeyDown(object sender, KeyEventArgs e) 
         {
             if(gameState.GameOver)
