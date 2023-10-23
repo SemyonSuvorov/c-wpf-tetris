@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:tetris"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         Title="Tetris" Height="600" Width="800"
         MinWidth="600" MinHeight="600"
@@ -87,11 +88,14 @@
                         Click="MainMenu_Click"/>
             </StackPanel>
         </Grid>
+        
         <Grid x:Name="MainMenu"
-              Background="Black"
               Grid.RowSpan="2"
               Grid.ColumnSpan="3"
               Visibility="Visible">
+            <Grid.Background>
+                <ImageBrush ImageSource="assets/Background.png"/>
+            </Grid.Background>
             <StackPanel Grid.Row="0"
                         Grid.Column='1'>
                 <TextBlock Text="Tetris"
@@ -114,10 +118,12 @@
             </StackPanel>
         </Grid>
         <Grid x:Name="RegField"
-              Background="Black"
               Grid.ColumnSpan="3"
               Visibility="Visible"
               Grid.RowSpan="2">
+            <Grid.Background>
+                <ImageBrush ImageSource="assets/Background.png"/>
+            </Grid.Background>
             <StackPanel Grid.Row="0"
                         Grid.Column="1">
                 <TextBlock Text="Please, enter your nickname:"
@@ -137,13 +143,13 @@
                         Click="NickReg_Click"/>
             </StackPanel>
         </Grid>
-        <Grid x:Name="PauseMenu"
+        <Viewbox Grid.RowSpan="2"
+                 Grid.ColumnSpan="3">
+            <Grid x:Name="PauseMenu"
               Background="#CC000000"
-              Grid.RowSpan="2"
-              Grid.ColumnSpan="3"
               Visibility="Hidden">
             <StackPanel HorizontalAlignment="Center"
-                        VerticalAlignment="Center" RenderTransformOrigin="-0.022,1.071">
+                        VerticalAlignment="Center">
                 <TextBlock Text="Pause"
                            FontSize="48"
                            TextAlignment="Center"/>
@@ -166,5 +172,32 @@
                         Click="MainMenu_Click"/>
             </StackPanel>
         </Grid>
+        </Viewbox>
+        <Viewbox Grid.RowSpan="2"
+                 Grid.ColumnSpan="3">
+        <Grid x:Name="LeaderboardGrid"
+              Visibility="Hidden">
+                <Grid.Background>
+                    <ImageBrush ImageSource="assets/Background.png"/>
+                </Grid.Background>
+                <DataGrid x:Name="DataGridLeaders"
+                      AutoGenerateColumns="True"
+                      Width="250"
+                      Height="300"
+                      RowHeight="20"
+                      FontSize="15" Margin="275,102,275,182"
+                      HorizontalAlignment="Center"
+                      VerticalAlignment="Center">
+            </DataGrid>
+                <Button Content="Main Menu"
+                    Background="LightPink"
+                    Width="200"
+                    Height="50" Margin="300,442,300,92"
+                    Click="MainMenu_Click"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+                </Button>
+            </Grid>
+        </Viewbox>
     </Grid>
 </Window>

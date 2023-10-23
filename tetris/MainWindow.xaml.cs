@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -47,6 +48,7 @@ namespace tetris
         private static bool flag = true;
         private string nickName;
         private Leaderboard db;
+        private static List<Leader> leaders;
 
         public MainWindow()
         {
@@ -153,7 +155,12 @@ namespace tetris
             await GameLoop();
         }
 
-        private void LeaderBoard_Click(object sender, RoutedEventArgs e) { }
+        private void LeaderBoard_Click(object sender, RoutedEventArgs e) 
+        {
+            LeaderboardGrid.Visibility = Visibility.Visible;
+            leaders = db.GetLeaderboard();
+            DataGridLeaders.ItemsSource = leaders;
+        }
 
         private void NickReg_Click(object sender, RoutedEventArgs e)
         {
@@ -211,6 +218,7 @@ namespace tetris
         
         private void MainMenu_Click(object sender, RoutedEventArgs e) 
         {
+            LeaderboardGrid.Visibility = Visibility.Hidden;
             GameOverMenu.Visibility = Visibility.Hidden;   
             PauseMenu.Visibility = Visibility.Hidden;
             MainMenu.Visibility = Visibility.Visible;
@@ -229,5 +237,6 @@ namespace tetris
             GameOverMenu.Visibility = Visibility.Hidden;
             await GameLoop();
         }
+
     }
 }
