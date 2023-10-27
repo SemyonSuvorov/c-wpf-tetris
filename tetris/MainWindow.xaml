@@ -88,34 +88,35 @@
                         Click="MainMenu_Click"/>
             </StackPanel>
         </Grid>
-        
         <Grid x:Name="MainMenu"
+              Visibility="Visible"
               Grid.RowSpan="2"
-              Grid.ColumnSpan="3"
-              Visibility="Visible">
+              Grid.ColumnSpan="3">
             <Grid.Background>
                 <ImageBrush ImageSource="assets/Background.png"/>
             </Grid.Background>
-            <StackPanel Grid.Row="0"
-                        Grid.Column='1'>
+            <Viewbox Grid.RowSpan="2"
+                     Grid.ColumnSpan="3">
+            <StackPanel>
                 <TextBlock Text="Tetris"
                         FontSize="48"
                         TextAlignment="Center"/>
                 <Button Content="Start"
                         Background="LightGreen"
                         Width="200"
-                        Height="90"
-                        Margin="0,90,0,0"
+                        Height="80"
+                        Margin="0,100,0,0"
                         Padding="20"
                         Click="Start_Click"/>
                 <Button Content="Leaderboard"
                         Background="LightGreen"
                         Width="200"
-                        Height="90"
-                        Margin="0,90,0,0"
+                        Height="80"
+                        Margin="0,100,0,120"
                         Padding="20"
                         Click="LeaderBoard_Click"/>
             </StackPanel>
+            </Viewbox>
         </Grid>
         <Grid x:Name="RegField"
               Grid.ColumnSpan="3"
@@ -124,30 +125,35 @@
             <Grid.Background>
                 <ImageBrush ImageSource="assets/Background.png"/>
             </Grid.Background>
-            <StackPanel Grid.Row="0"
-                        Grid.Column="1">
+            <Viewbox>
+            <StackPanel>
                 <TextBlock Text="Please, enter your nickname:"
                            HorizontalAlignment="Center"
-                           Margin="0,190,0,0"/>
+                           VerticalAlignment="Center"
+                           Margin="0,100,0,100"/>
                 <TextBox x:Name="nickBox"
-                         Height="50"
+                         Height="40"
                          Width="300"
                          VerticalScrollBarVisibility="Auto"
                          HorizontalScrollBarVisibility="Auto"
-                         VerticalAlignment="Center"/>
+                         VerticalAlignment="Center"
+                         Margin="0, -80, 0 ,100"/>
                 <Button x:Name="nickRegButton"
                         Content="Continue"
                         Background="LightGreen"
                         Width="120"
                         Padding="5"
-                        Click="NickReg_Click"/>
+                        Click="NickReg_Click"
+                        Margin="0,10,0,110"/>
             </StackPanel>
+            </Viewbox>
         </Grid>
-        <Viewbox Grid.RowSpan="2"
-                 Grid.ColumnSpan="3">
-            <Grid x:Name="PauseMenu"
+
+        <Grid x:Name="PauseMenu"
               Background="#CC000000"
-              Visibility="Hidden">
+              Visibility="Hidden"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="3">
             <StackPanel HorizontalAlignment="Center"
                         VerticalAlignment="Center">
                 <TextBlock Text="Pause"
@@ -172,15 +178,15 @@
                         Click="MainMenu_Click"/>
             </StackPanel>
         </Grid>
-        </Viewbox>
-        <Viewbox Grid.RowSpan="2"
-                 Grid.ColumnSpan="3">
         <Grid x:Name="LeaderboardGrid"
-              Visibility="Hidden">
-                <Grid.Background>
-                    <ImageBrush ImageSource="assets/Background.png"/>
-                </Grid.Background>
-                <DataGrid x:Name="DataGridLeaders"
+              Visibility="Hidden"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="3">
+            <Grid.Background>
+                <ImageBrush ImageSource="assets/Background.png"/>
+            </Grid.Background>
+            <Viewbox>
+            <DataGrid x:Name="DataGridLeaders"
                       AutoGenerateColumns="True"
                       Width="250"
                       Height="300"
@@ -189,15 +195,17 @@
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center">
             </DataGrid>
-                <Button Content="Main Menu"
+            </Viewbox>
+            <Viewbox>
+            <Button Content="Main Menu"
                     Background="LightPink"
                     Width="200"
                     Height="50" Margin="300,442,300,92"
                     Click="MainMenu_Click"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
-                </Button>
-            </Grid>
-        </Viewbox>
+            </Button>
+            </Viewbox>
+        </Grid>
     </Grid>
 </Window>
