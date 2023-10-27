@@ -189,8 +189,8 @@
             <DataGrid x:Name="DataGridLeaders"
                       AutoGenerateColumns="True"
                       Width="250"
-                      Height="300"
-                      RowHeight="20"
+                      Height="320"
+                      RowHeight="27"
                       FontSize="15" Margin="275,102,275,182"
                       HorizontalAlignment="Center"
                       VerticalAlignment="Center">

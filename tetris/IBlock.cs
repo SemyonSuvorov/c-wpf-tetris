@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace tetris
+﻿namespace tetris
 {
     internal class IBlock : Block
     {
@@ -17,7 +11,7 @@ namespace tetris
         };
 
         public override int Id => 1;
-        protected override Position StartOffset => new Position(-1, 3);
+        protected override Position StartOffset => new(-1, 3);
         protected override Position[][] Tiles => tiles;
     }
 }

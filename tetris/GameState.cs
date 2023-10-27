@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace tetris
 {
@@ -18,7 +15,7 @@ namespace tetris
                 currentBlock = value;
                 currentBlock.Reset();
 
-                for(int i = 0; i< 2; i++)
+                for(int i = 0; i < 2; i++)
                 {
                     currentBlock.Move(1, 0);
                     
@@ -107,7 +104,6 @@ namespace tetris
             numRowsCleared = GameGrid.ClearFullRows();
             Level += numRowsCleared;
             Score += 100 * numRowsCleared;
-
 
             if(IsGameOver())
             {

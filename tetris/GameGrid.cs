@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
-
-namespace tetris
+﻿namespace tetris
 {
     internal class GameGrid
     {
@@ -72,14 +65,14 @@ namespace tetris
             for (int c = 0; c < Columns; c++)
             {
                 grid[r + numrows, c] = grid[r, c];
-                grid[r, c] = 0;
+                grid[r, c] = 0; 
             }
         }
 
         public int ClearFullRows()
         {
             int cleared = 0;
-            for(int r = Rows-1; r>=0; r--) 
+            for(int r = Rows - 1; r >= 0; r--) 
             {
                 if(IsRowFull(r))
                 {

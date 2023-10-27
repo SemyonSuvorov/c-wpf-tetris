@@ -43,12 +43,12 @@ namespace tetris
         private readonly int maxDelay = 1000;
         private readonly int minDelay = 75;
         private readonly double delayDecrease = 0.25;
-        private GameState gameState= new GameState();
+        private GameState gameState = new();
         private int Y_axis;
         private static bool flag = true;
-        private string nickName;
-        private Leaderboard db;
-        private static List<Leader> leaders;
+        private string nickName = "";
+        private readonly Leaderboard db;
+        private static List<Leader>? leaders;
 
         public MainWindow()
         {
