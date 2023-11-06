@@ -16,7 +16,7 @@ namespace tetris
             new ZBlock(),
         };
 
-        private readonly Random random = new Random();
+        private readonly Random random = new();
 
         public Block NextBlock { get; private set; }
 

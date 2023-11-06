@@ -10,7 +10,7 @@ namespace tetris
         public abstract int Id { get; }
 
         private int RotationState;
-        private Position offset;
+        private readonly Position offset;
 
         public Block()
         {

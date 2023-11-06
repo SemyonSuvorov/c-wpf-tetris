@@ -65,7 +65,7 @@ namespace tetris
             {
                 for(int c = 0; c < grid.Columns; c++)
                 {
-                    Image imageControl = new Image
+                    Image imageControl = new()
                     {
                         Width = cellSize,
                         Height = cellSize,
